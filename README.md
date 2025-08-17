@@ -1,75 +1,84 @@
-# Nuxt Minimal Starter
+# Vue 3 + Nuxt 3 + TypeScript Demo
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A modern web application built with Vue 3, Nuxt 3, and TypeScript, featuring component testing with Vitest and Vue Test Utils.
 
-## Setup
+## Features
 
-Make sure to install dependencies:
+- 🚀 Vue 3 with Composition API
+- ⚡ Nuxt 3 for SSR and static site generation
+- 🎨 Tailwind CSS for styling
+- 🧪 Component testing with Vitest and Vue Test Utils
+- 🎯 TypeScript support
+- 🎨 Dark mode support
+- 🔍 Icon integration with Iconify
+
+## Prerequisites
+
+- Node.js 18+ (LTS recommended)
+- npm (included with Node.js)
+
+## Project Setup
 
 ```bash
-# npm
+# Install dependencies
 npm install
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
+# Start development server
 npm run dev
 
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
+# Build for production
 npm run build
 
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+# Preview production build
+npm run preview
 ```
 
-Locally preview production build:
+## Testing
+
+Run unit tests with [Vitest](https://vitest.dev/):
 
 ```bash
-# npm
-npm run preview
+# Run tests in watch mode
+npm run test:dev
 
-# pnpm
-pnpm preview
+# Run tests once
+npm test
 
-# yarn
-yarn preview
+# Run tests with coverage
+npm run test:coverage
 
-# bun
-bun run preview
+# Run tests with UI
+npm run test:ui
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Project Structure
+
+```
+app/
+├── assets/          # Static assets
+├── components/      # Reusable components
+│   ├── __tests__/   # Component tests
+│   └── books/       # Book-related components
+├── layouts/         # Layout components
+└── pages/           # Application pages
+
+test/                # Test setup and utilities
+```
+
+## Tech Stack
+
+- [Vue 3](https://vuejs.org/) - Progressive JavaScript Framework
+- [Nuxt 3](https://nuxt.com/) - The Intuitive Web Framework
+- [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Vitest](https://vitest.dev/) - Next generation testing framework
+- [Vue Test Utils](https://test-utils.vuejs.org/) - Official testing utilities for Vue
+- [Iconify](https://iconify.design/) - Universal icon framework
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
