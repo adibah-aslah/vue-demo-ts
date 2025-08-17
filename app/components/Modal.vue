@@ -7,9 +7,8 @@
     <div 
       class="bg-white dark:bg-gray-900 rounded-lg shadow-lg max-w-[60vw] w-full max-h-[70vh] flex flex-col"
     >
-      <!-- Header -->
       <div v-if="$slots.title" class="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-        <h2 class="text-xl font-bold">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-white">
           <slot name="title" />
         </h2>
         <button
@@ -21,12 +20,9 @@
         </button>
       </div>
 
-      <!-- Body -->
       <div class="flex-1 overflow-y-auto p-4">
         <slot />
       </div>
-
-      <!-- Footer -->
       <div v-if="$slots.footer" class="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">
         <slot name="footer" />
       </div>

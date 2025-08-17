@@ -23,7 +23,6 @@ function updateTheme() {
   }
 }
 
-// Check for saved theme preference or use system preference
 onMounted(() => {
   const savedTheme = localStorage.getItem('theme');
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -36,7 +35,6 @@ onMounted(() => {
   
   updateTheme();
   
-  // Watch for system theme changes
   const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
   const handleChange = (e: MediaQueryListEvent) => {
     if (!localStorage.getItem('theme')) {
@@ -66,7 +64,6 @@ const pageTitle = computed(() => {
 
 <template>
   <div class="grid h-screen grid-rows-[auto_1fr_auto] bg-gray-50 dark:bg-gray-900">
-    <!-- Header -->
     <header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 sticky top-0 z-30 shadow-sm">
       <div class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
@@ -92,14 +89,12 @@ const pageTitle = computed(() => {
       </div>
     </header>
 
-    <!-- Main -->
     <main class="overflow-y-auto">
       <div class="container mx-auto px-4">
         <slot />
       </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
       <div class="container mx-auto px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
         {{ new Date().getFullYear() }} Vue ts demo app. All rights reserved.

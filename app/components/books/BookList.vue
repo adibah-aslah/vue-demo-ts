@@ -12,7 +12,6 @@
       />
     </div>
 
-    <!-- Modal -->
     <Modal :show="showModal" @close="closeModal">
       <template #title>
         {{ selectedBook?.title }}
@@ -26,10 +25,10 @@
             :alt="selectedBook.title"
             class="w-32 h-44 object-cover rounded mx-auto"
           />
-          <p><strong>Author:</strong> {{ selectedBook?.author }}</p>
-          <p><strong>Publisher:</strong> {{ selectedBook?.publisher }}</p>
-          <p><strong>Print Type:</strong> {{ selectedBook?.printType }}</p>
-          <p><strong>Year:</strong> {{ selectedBook?.year }}</p>
+          <p class="text-gray-600 dark:text-gray-300"><strong>Author:</strong> {{ selectedBook?.author }}</p>
+          <p class="text-gray-600 dark:text-gray-300"><strong>Publisher:</strong> {{ selectedBook?.publisher }}</p>
+          <p class="text-gray-600 dark:text-gray-300"><strong>Print Type:</strong> {{ selectedBook?.printType }}</p>
+          <p class="text-gray-600 dark:text-gray-300"><strong>Year:</strong> {{ selectedBook?.year }}</p>
           <p class="text-sm text-gray-600 dark:text-gray-300">
             {{ selectedBook?.description || 'No description available.' }}
           </p>

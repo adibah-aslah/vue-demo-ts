@@ -1,13 +1,11 @@
 <template>
   <div class="w-full py-4 md:py-8">
     <div class="w-full max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-      <!-- Header -->
       <div class="p-4 md:p-6 border-b border-gray-200 dark:border-gray-700">
         <h1 class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">My Todo List</h1>
         <p class="text-sm md:text-base text-gray-600 dark:text-gray-300">Stay organized and get things done</p>
       </div>
       
-      <!-- Add Todo Form -->
       <div class="p-4 md:p-6 border-b border-gray-100 dark:border-gray-700">
         <div class="flex flex-col sm:flex-row gap-3">
           <input
@@ -63,7 +61,6 @@
         </div>
       </div>
 
-      <!-- Footer Stats -->
       <div v-if="todos.length > 0" class="p-3 md:p-4 bg-gray-50 dark:bg-gray-700/50 text-xs md:text-sm text-gray-500 dark:text-gray-400">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-2">
           <span>{{ todos.filter(t => !t.done).length }} items left</span>
@@ -72,7 +69,6 @@
       </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
     <Modal :show="showModal" @close="cancelDelete">
       <template #title>Delete Todo</template>
       
