@@ -24,19 +24,23 @@ function next() {
     <button
       @click="prev"
       :disabled="page === 1"
-      class="px-3 py-1 border rounded disabled:opacity-50"
+      class="px-4 py-2 border rounded-md disabled:opacity-50
+             text-gray-700 dark:text-gray-200 border-gray-300 dark:border-gray-600
+             hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
     >
       Prev
     </button>
 
-    <span class="text-sm">
+    <span class="text-sm text-gray-700 dark:text-gray-300">
       Page {{ page }} / {{ totalPages }}
     </span>
 
     <button
       @click="next"
       :disabled="page === totalPages"
-      class="px-3 py-1 border rounded disabled:opacity-50"
+      class="px-4 py-2 border rounded-md disabled:opacity-50
+             text-gray-700 dark:text-gray-200 border-gray-300 dark:border-gray-600
+             hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
     >
       Next
     </button>

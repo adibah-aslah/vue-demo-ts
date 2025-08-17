@@ -79,7 +79,7 @@ const pageTitle = computed(() => {
             >
               <Icon icon="ep:back" class="text-2xl"/>
             </NuxtLink>
-            <h1 class="text-xl font-bold">{{ pageTitle }}</h1>
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white">{{ pageTitle }}</h1>
           </div>
           <button 
             @click="toggleTheme" 
