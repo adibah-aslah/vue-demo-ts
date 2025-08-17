@@ -1,0 +1,53 @@
+<script setup lang="ts">
+interface BookCardProps {
+  title: string;
+  author: string;
+  year: number | string;
+  thumbnail?: string | null;
+}
+
+const props = defineProps<BookCardProps>();
+const emit = defineEmits(['open'])
+
+defineOptions({
+  name: 'BookCard',
+  inheritAttrs: false
+});
+</script>
+
+<template>
+  <div
+    class="group flex items-start gap-4 p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700
+           hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-200
+           hover:shadow-lg dark:bg-gray-800/50"
+    @click="emit('open')"
+  >
+    <div class="w-20 h-28 flex-shrink-0">
+      <img
+        v-if="thumbnail"
+        :src="thumbnail"
+        :alt="title"
+        class="w-full h-full object-cover rounded-md"
+      />
+      <div
+        v-else
+        class="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center rounded-md"
+      >
+        <span class="text-gray-500 text-xs text-center">No Image</span>
+      </div>
+    </div>
+
+    <!-- Book details -->
+    <div class="flex flex-col justify-between">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+        {{ title }}
+      </h3>
+      <p class="text-sm text-gray-600 dark:text-gray-300">
+        Author: {{ author }}
+      </p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        Published: {{ year }}
+      </p>
+    </div>
+  </div>
+</template>
