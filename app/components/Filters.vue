@@ -28,71 +28,84 @@ const showFilters = ref(false)
 
 <template>
   <div class="flex flex-col gap-2">
-    <div class="flex gap-2">
-      <Input 
-        v-model="props.searchQuery"
-        label="Search books"
-        icon="mdi:magnify"
-        iconPosition="right"
-        clearable
-        @update:modelValue="val => emit('update:searchQuery', val)"
-      />
+    <div class="flex flex-wrap gap-2">
+      <div class="flex-1 min-w-[200px]">
+        <Input 
+          v-model="props.searchQuery"
+          label="Search books"
+          icon="mdi:magnify"
+          iconPosition="right"
+          @update:modelValue="val => emit('update:searchQuery', val)"
+          @keyup.enter="emit('search')"
+          @clear="emit('search')"
+        />
+      </div>
 
-      <Button variant="primary" class="whitespace-nowrap px-6" @click="emit('search')">
-        Search
-      </Button>
+      <div class="flex gap-2 flex-wrap">
+        <Button variant="primary" class="whitespace-nowrap px-6" @click="emit('search')">
+          Search
+        </Button>
 
-      <Button 
-        variant="primary" 
-        class="whitespace-nowrap px-6" 
-        icon="mdi:filter-outline"
-        @click="showFilters = !showFilters"
-      >
-        {{ showFilters ? 'Hide Filters' : 'Filter' }}
-      </Button>
+        <Button 
+          :variant="showFilters ? 'primary' : 'text'"
+          class="whitespace-nowrap px-6" 
+          icon="mdi:filter-outline"
+          @click="showFilters = !showFilters"
+        >
+          Filter
+        </Button>
 
-      <Button variant="text" class="whitespace-nowrap px-6" @click="emit('clear')">
-        Clear
-      </Button>
+        <Button variant="text" class="whitespace-nowrap px-6" @click="emit('clear')">
+          Clear
+        </Button>
+      </div>
     </div>
 
     <transition name="fade">
-      <div v-if="showFilters" class="flex gap-2 mt-2">
-        <Dropdown
-          v-model="props.year"
-          label="Year"
-          multiple
-          clearable
-          :options="yearOptions"
-          @update:modelValue="val => emit('update:year', val)"
-        />
+      <div v-if="showFilters" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-2">
+        <div class="w-full">
+          <Dropdown
+            v-model="props.year"
+            label="Year"
+            multiple
+            clearable
+            :options="yearOptions"
+            @update:modelValue="val => emit('update:year', val)"
+          />
+        </div>
 
-        <Dropdown
-          v-model="props.author"
-          label="Author"
-          multiple
-          clearable
-          :options="authorOptions"
-          @update:modelValue="val => emit('update:author', val)"
-        />
+        <div class="w-full">
+          <Dropdown
+            v-model="props.author"
+            label="Author"
+            multiple
+            clearable
+            :options="authorOptions"
+            @update:modelValue="val => emit('update:author', val)"
+          />
+        </div>
 
-        <Dropdown
-          v-model="props.publisher"
-          label="Publisher"
-          multiple
-          clearable
-          :options="publisherOptions"
-          @update:modelValue="val => emit('update:publisher', val)"
-        />
+        <div class="w-full">
+          <Dropdown
+            v-model="props.publisher"
+            label="Publisher"
+            multiple
+            clearable
+            :options="publisherOptions"
+            @update:modelValue="val => emit('update:publisher', val)"
+          />
+        </div>
 
-        <Dropdown
-          v-model="props.printType"
-          label="Print Type"
-          multiple
-          clearable
-          :options="printTypeOptions"
-          @update:modelValue="val => emit('update:printType', val)"
-        />
+        <div class="w-full">
+          <Dropdown
+            v-model="props.printType"
+            label="Print Type"
+            multiple
+            clearable
+            :options="printTypeOptions"
+            @update:modelValue="val => emit('update:printType', val)"
+          />
+        </div>
       </div>
     </transition>
   </div>
@@ -100,9 +113,10 @@ const showFilters = ref(false)
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
+  transform: translateY(-10px);
 }
 </style>
