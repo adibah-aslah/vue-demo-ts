@@ -1,21 +1,27 @@
-<script setup lang="ts">
-import { useRouter } from 'vue-router';
-const router = useRouter();
-
-function goToTodo() {
-  router.push('/todo');
-}
-function goToTable() {
-  router.push('/table');
-}
-</script>
-
 <template>
-  <div class="min-h-screen flex flex-col items-center justify-center text-center p-8">
-    <h1 class="text-3xl font-bold mb-6">Welcome to my Vue Typescript Demo App</h1>
-    <div class="flex gap-4">
-      <Button variant="primary" @click="goToTodo">Todo page</Button>
-      <!-- <Button variant="primary" @click="goToTable">Table page</Button> -->
+  <div class="container mx-auto px-4 py-12">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-white">
+        Welcome to my Vue Typescript Demo App
+      </h1>
+      
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12">
+        <AppCard
+          to="/todo"
+          title="Todo App"
+          description="Manage your tasks and stay organized"
+          icon="📝"
+          link-text="Open Todo App"
+        />
+
+        <AppCard
+          to="/books"
+          title="Books Collection"
+          description="Browse and manage your book collection"
+          icon="📚"
+          link-text="View Books"
+        />
+      </div>
     </div>
   </div>
 </template>
