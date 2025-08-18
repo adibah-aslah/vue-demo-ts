@@ -46,7 +46,7 @@ defineOptions({
       </div>
     </div>
 
-    <div class="flex flex-col justify-between">
+    <div class="flex flex-col justify-between w-full">
       <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1">
         {{ props.title }}
       </h3>

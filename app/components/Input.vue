@@ -30,13 +30,13 @@ const handleInput = (event: Event) => {
         :value="modelValue"
         @input="handleInput($event)"
         placeholder=" "
-        class="peer w-full border rounded-lg pt-4 pb-2
+        class="peer w-full border rounded-lg pt-4 pb-2 px-3
                focus:border-blue-500 dark:focus:border-blue-400
                dark:bg-gray-800 dark:text-white
                transition placeholder-transparent"
         :class="{
           'pl-10': icon && iconPosition === 'left',
-          'pr-10': icon && iconPosition === 'right',
+          'pr-10': (icon && iconPosition === 'right') || clearable,
           'border-red-500 dark:border-red-500': error,
           'border-gray-300 dark:border-gray-600': !error
         }"
