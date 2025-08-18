@@ -14,7 +14,9 @@
 
     <Modal :show="showModal" @close="closeModal">
       <template #title>
-        {{ selectedBook?.title }}
+        <div class="line-clamp-2">
+          {{ selectedBook?.title }}
+        </div>
       </template>
 
       <template #default>

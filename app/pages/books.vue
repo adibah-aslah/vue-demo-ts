@@ -15,6 +15,8 @@ const printType = ref<string[]>([])
 const page = ref(1)
 const pageSize = ref(4)
 const books = ref<any[]>([])
+const isLoading = ref(false)
+const error = ref<string | null>(null)
 
 const yearOptions = ref<{ label: string; value: string }[]>([])
 const authorOptions = ref<{ label: string; value: string }[]>([])
@@ -40,39 +42,51 @@ const paginatedBooks = computed(() => {
 const total = computed(() => filteredBooks.value.length)
 
 async function searchBooks() {
-  const res = await fetchBooks({
-    q: searchQuery.value || 'clean code',
-    maxResults: 40
+  try {
+    isLoading.value = true
+    error.value = null
+    const res = await fetchBooks({
+      q: searchQuery.value || 'clean code',
+      maxResults: 40
+    })
+
+    books.value = res.items?.map((b: any) => ({
+      id: b.id,
+      title: b.volumeInfo.title || 'Untitled',
+      author: b.volumeInfo.authors?.[0] || 'Unknown',
+      publisher: b.volumeInfo.publisher || 'Unknown',
+      printType: b.volumeInfo.printType || 'Unknown',
+      year: b.volumeInfo.publishedDate?.split('-')[0] || 'N/A',
+      thumbnail: b.volumeInfo.imageLinks?.thumbnail || null,
+      description: b.volumeInfo.description || ''
+    })) || []
+
+    updateFilterOptions()
+  } catch (err) {
+    console.error('Error fetching books:', err)
+    error.value = 'Failed to load books. Please try again.'
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const updateFilterOptions = () => {
+  const years = new Set<string>()
+  const authors = new Set<string>()
+  const publishers = new Set<string>()
+  const printTypes = new Set<string>()
+
+  books.value.forEach(book => {
+    if (book.year) years.add(book.year)
+    if (book.authors) book.authors.forEach((a: string) => authors.add(a))
+    if (book.publisher) publishers.add(book.publisher)
+    if (book.printType) printTypes.add(book.printType)
   })
 
-  books.value = res.items?.map((b: any) => ({
-    id: b.id,
-    title: b.volumeInfo.title || 'Untitled',
-    author: b.volumeInfo.authors?.[0] || 'Unknown',
-    publisher: b.volumeInfo.publisher || 'Unknown',
-    printType: b.volumeInfo.printType || 'Unknown',
-    year: b.volumeInfo.publishedDate?.split('-')[0] || 'N/A',
-    thumbnail: b.volumeInfo.imageLinks?.thumbnail || null,
-    description: b.volumeInfo.description || ''
-  })) || []
-
-  yearOptions.value = Array.from(new Set(books.value.map(b => b.year)))
-    .filter(Boolean)
-    .map(y => ({ label: y, value: y }))
-
-  authorOptions.value = Array.from(new Set(books.value.map(b => b.author)))
-    .filter(Boolean)
-    .map(a => ({ label: a, value: a }))
-
-  publisherOptions.value = Array.from(new Set(books.value.map(b => b.publisher)))
-    .filter(Boolean)
-    .map(p => ({ label: p, value: p }))
-
-  printTypeOptions.value = Array.from(new Set(books.value.map(b => b.printType)))
-    .filter(Boolean)
-    .map(pt => ({ label: pt, value: pt }))
-
-  page.value = 1
+  yearOptions.value = Array.from(years).map(y => ({ label: y, value: y }))
+  authorOptions.value = Array.from(authors).map(a => ({ label: a, value: a }))
+  publisherOptions.value = Array.from(publishers).map(p => ({ label: p, value: p }))
+  printTypeOptions.value = Array.from(printTypes).map(p => ({ label: p, value: p }))
 }
 
 function handleSearch() {
@@ -113,16 +127,31 @@ onMounted(searchBooks)
         :print-type-options="printTypeOptions"
         @search="handleSearch"
         @clear="handleClear"
+        :disabled="isLoading"
       />
 
-      <BookList :books="paginatedBooks" />
-
-      <Pagination
-        :page="page"
-        :page-size="pageSize"
-        :total="total"
-        @update:page="handlePageChange"
-      />
+      <div v-if="isLoading" class="flex justify-center items-center p-8">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+      <template v-else-if="error">
+        <div class="text-red-500 p-4 text-center">
+          {{ error }}
+        </div>
+      </template>
+      <template v-else>
+        <BookList :books="paginatedBooks" />
+        <Pagination
+          v-if="filteredBooks.length > 0"
+          :page="page"
+          :page-size="pageSize"
+          :total="filteredBooks.length"
+          @update:page="handlePageChange"
+          :disabled="isLoading"
+        />
+        <div v-else class="text-center py-8 text-gray-500">
+          No books found. Try adjusting your search filters.
+        </div>
+      </template>
     </ClientOnly>
   </div>
 </template>

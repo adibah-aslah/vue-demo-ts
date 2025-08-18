@@ -25,6 +25,9 @@ export default {
           dark: '#f9fafb',
         },
       },
+      lineClamp: {
+        2: '2',
+      },
     },
   },
   plugins: [],
